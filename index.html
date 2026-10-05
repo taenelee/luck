@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+
+        body{
+            margin:0;
+            background:black;
+            color:white;
+            width:100vw;
+            height:100vh;
+            overflow:hidden;
+            font-family:sans-serif;
+        }
+
+        #date{
+            position:absolute;
+            right:2vw;
+            top:2vh;
+
+            font-size:1.3vw;
+            font-weight:bold;
+            letter-spacing:0.05em;
+
+            z-index:10;
+        }
+
+        #paper{
+            position:absolute;
+
+            left:50%;
+            top:48%;
+
+            transform:translate(-50%, -50%) rotate(1deg);
+
+            width:85vw;
+            height:63vw;
+
+            max-width:1200px;
+            max-height:650px;
+
+            background-image:url("paper.png");
+            background-size:100% 100%;
+            background-repeat:no-repeat;
+            background-position:center;
+        }
+
+        .word{
+            position:absolute;
+            color:black;
+
+            white-space:nowrap;
+
+            cursor:pointer;
+            user-select:none;
+        }
+
+        #word1{
+            left:18%;
+            top:15%;
+
+            font-family:serif;
+            font-size:5.5vw;
+            font-weight:bold;
+        }
+
+        #word2{
+            left:34%;
+            top:33%;
+
+            font-family:sans-serif;
+            font-size:4vw;
+            font-weight:300;
+        }
+
+        #word3{
+            left:49%;
+            top:48%;
+
+            font-family:serif;
+            font-size:4.7vw;
+            font-weight:bold;
+        }
+
+        #word4{
+            left:8%;
+            top:63%;
+
+            font-family:sans-serif;
+            font-size:4.6vw;
+            font-weight:bold;
+        }
+
+        #word5{
+            left:22%;
+            top:80%;
+
+            font-family:serif;
+            font-size:3.4vw;
+            font-weight:400;
+        }
+
+        #result{
+            position:absolute;
+
+            left:50%;
+            bottom:2.5vh;
+
+            transform:translateX(-50%);
+
+            width:94vw;
+
+            display:none;
+
+            align-items:center;
+            justify-content:center;
+
+            gap:18px;
+
+            color:white;
+            font-size:1vw;
+
+            white-space:nowrap;
+        }
+
+
+        #resultTitle{
+            font-weight:bold;
+            font-size:1.15vw;
+        }
+
+
+        #againBut{
+            border:none;
+
+            background:white;
+            color:black;
+
+            padding:5px 10px;
+
+            font-size:0.8vw;
+
+            font-family:"Nanum Myeongjo", serif;
+
+            cursor:pointer;
+        }
+
+
+        #againBut:hover{
+            background:#dddddd;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div id="date"></div>
+
+<div id="paper">
+
+    <div class="word" id="word1">
+        같은 숫자를
+    </div>
+
+    <div class="word" id="word2">
+        오늘 아침
+    </div>
+
+    <div class="word" id="word3">
+        집에 가는 길에서
+    </div>
+
+    <div class="word" id="word4">
+        우연히 발견한다면
+    </div>
+
+    <div class="word" id="word5">
+        그냥 지나치지 마세요.
+    </div>
+
+</div>
+
+<div id="result">
+
+    <span id="resultTitle">
+        오늘 당신의 운세가 나왔습니다.
+    </span>
+
+    <span>
+        마음에 안 드시나요? 운명은 개척하는 것. 다시 테스트 해보세요.
+    </span>
+
+    <button id="againBut">
+        다시 하기
+    </button>
+
+</div>
+
+<script>
+
+alert("흘러가는 문장을 하나씩 멈춰 오늘의 운세를 완성해보세요.");
+
+let today = new Date();
+
+let year = today.getFullYear();
+let month = today.getMonth() + 1;
+let day = today.getDate();
+
+let week = [
+    "일요일",
+    "월요일",
+    "화요일",
+    "수요일",
+    "목요일",
+    "금요일",
+    "토요일"
+];
+
+let todayWeek = week[today.getDay()];
+
+date.innerHTML =
+    year + "년 "
+    + month + "월 "
+    + day + "일 "
+    + todayWeek;
+
+let list1 = [
+
+    "같은 숫자를",
+    "익숙한 노래를",
+    "오래된 연락처를",
+    "익숙한 향을",
+    "우연히 들은 이름을",
+    "갑자기 떠오른 사람을",
+    "놓칠 뻔한 알림을",
+    "반복해서 보이는 단어를",
+    "평소와 다른 길을",
+    "누군가의 한마디를",
+    "자꾸 눈에 들어오는 색을",
+    "다시 듣게 된 노래를",
+    "오래된 사진을",
+    "우연히 마주친 사람을",
+    "평소보다 늦게 온 연락을",
+    "이상하게 기억에 남는 장면을",
+    "반복해서 들리는 말을",
+    "갑자기 생각난 장소를",
+    "지나치려다 다시 본 것을",
+    "한동안 잊고 있던 것을",
+    "누군가의 시선을",
+    "예상하지 못한 메시지를",
+    "자꾸 떠오르는 문장을",
+    "평소와 다른 표정을",
+    "우연히 다시 보게 된 것을"
+
+];
+
+let list2 = [
+
+    "오늘 아침",
+    "점심을 먹고 난 뒤",
+    "오후 3시쯤",
+    "오후 4시 32분쯤",
+    "해가 지기 직전",
+    "집에 돌아가는 시간에",
+    "저녁을 먹기 전에",
+    "밤 9시 이후",
+    "잠들기 한 시간 전",
+    "하루가 거의 끝날 무렵"
+
+];
+
+let list3 = [
+
+    "집에 가는 길에서",
+    "횡단보도 앞에서",
+    "지하철 안에서",
+    "엘리베이터 안에서",
+    "편의점 근처에서",
+    "학교나 회사 근처에서",
+    "카페 창가에서",
+    "계단을 오르다가",
+    "골목을 걷다가",
+    "평소 자주 지나던 곳에서"
+
+];
+
+let list4 = [
+
+    "우연히 발견한다면",
+    "두 번 이상 보게 된다면",
+    "이상하게 눈에 들어온다면",
+    "평소보다 오래 바라보게 된다면",
+    "누군가와 동시에 발견한다면",
+    "갑자기 가까이에 나타난다면",
+    "한 번 지나쳤다가 다시 보게 된다면",
+    "이유 없이 신경 쓰인다면",
+    "예상하지 못한 순간 마주친다면",
+    "오늘따라 유난히 선명하게 보인다면"
+
+];
+
+let list5 = [
+
+    "그냥 지나치지 마세요.",
+    "한 번 더 확인해보세요.",
+    "오늘은 그쪽을 선택하세요.",
+    "잠시 멈춰보세요.",
+    "누군가에게 먼저 말을 걸어보세요.",
+    "마음속으로 소원을 하나 빌어보세요.",
+    "평소와 다른 선택을 해보세요.",
+    "그 순간 떠오른 생각을 믿어보세요.",
+    "사진을 한 장 남겨두세요.",
+    "아무에게도 말하지 말고 기억해두세요."
+
+];
+
+let a = 0;
+let b = 0;
+let c = 0;
+let d = 0;
+let e = 0;
+
+let stop1 = 0;
+let stop2 = 0;
+let stop3 = 0;
+let stop4 = 0;
+let stop5 = 0;
+
+function change1(){
+
+    if(stop1 == 0){
+
+        word1.innerHTML = list1[a];
+
+        a++;
+
+        if(a == list1.length){
+            a = 0;
+        }
+
+    }
+
+}
+
+function change2(){
+
+    if(stop2 == 0){
+
+        word2.innerHTML = list2[b];
+
+        b++;
+
+        if(b == list2.length){
+            b = 0;
+        }
+
+    }
+
+}
+
+function change3(){
+
+    if(stop3 == 0){
+
+        word3.innerHTML = list3[c];
+
+        c++;
+
+        if(c == list3.length){
+            c = 0;
+        }
+
+    }
+
+}
+
+function change4(){
+
+    if(stop4 == 0){
+
+        word4.innerHTML = list4[d];
+
+        d++;
+
+        if(d == list4.length){
+            d = 0;
+        }
+
+    }
+
+}
+
+function change5(){
+
+    if(stop5 == 0){
+
+        word5.innerHTML = list5[e];
+
+        e++;
+
+        if(e == list5.length){
+            e = 0;
+        }
+
+    }
+
+}
+
+setInterval(change1, 110);
+setInterval(change2, 170);
+setInterval(change3, 230);
+setInterval(change4, 140);
+setInterval(change5, 200);
+
+function finishCheck(){
+
+    if(
+        stop1 == 1 &&
+        stop2 == 1 &&
+        stop3 == 1 &&
+        stop4 == 1 &&
+        stop5 == 1
+    ){
+
+        result.style.display = "flex";
+
+    }
+
+}
+
+word1.onclick = function(){
+
+    stop1 = 1;
+
+    finishCheck();
+
+}
+
+word2.onclick = function(){
+
+    stop2 = 1;
+
+    finishCheck();
+
+}
+
+word3.onclick = function(){
+
+    stop3 = 1;
+
+    finishCheck();
+
+}
+
+word4.onclick = function(){
+
+    stop4 = 1;
+
+    finishCheck();
+
+}
+
+word5.onclick = function(){
+
+    stop5 = 1;
+
+    finishCheck();
+
+}
+
+
+againBut.onclick = function(){
+
+    stop1 = 0;
+    stop2 = 0;
+    stop3 = 0;
+    stop4 = 0;
+    stop5 = 0;
+
+    result.style.display = "none";
+
+}
+
+</script>
+
+</body>
+</html>
